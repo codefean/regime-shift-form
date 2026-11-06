@@ -1,4 +1,4 @@
-import {coordinate} from './validation.mjs';
+import {coordinate} from './validation.mjs?v=2';
 import {mapConfig} from './map-config.mjs';
 export function setupLocation(form) {
   const location = form.elements.location;
@@ -63,7 +63,7 @@ export function setupLocation(form) {
         cache.set(query.toLowerCase(),features);
       }
       if (id !== requestId) return;
-      status.textContent = features.length ? 'Choose a result, then adjust the pin to the event location.' : 'No places found. Try adding a country, or place the pin / enter coordinates manually.';
+      status.textContent = features.length ? 'Choose a result, then adjust the pin to the case study location.' : 'No places found. Try adding a country, or place the pin / enter coordinates manually.';
       for (const feature of features) {
         const props = feature.properties || {};
         const label = [...new Set([props.name,props.street,props.city,props.state,props.country].filter(Boolean))].join(', ') || query;
@@ -72,13 +72,13 @@ export function setupLocation(form) {
         option.addEventListener('click', () => {
           location.value = label.slice(0,300);
           place(feature.geometry.coordinates[1],feature.geometry.coordinates[0],true);
-          results.replaceChildren(); status.textContent = 'Location selected. Check the pin and drag it to the exact event location.';
+          results.replaceChildren(); status.textContent = 'Location selected. Check the pin and drag it to the exact case study location.';
         });
         results.append(option);
       }
     } catch {if (id === requestId) status.textContent = 'Place search is unavailable. Try again later, click the map, or enter coordinates manually.';}
     finally {clearTimeout(timeout); if (id === requestId) search.disabled = false;}
   });
-  document.querySelector('#clear-location').addEventListener('click', () => {cancelSearch(); clearPoint(); status.textContent='Pin and coordinates cleared. You can leave them blank.';});
+  document.querySelector('#clear-location').addEventListener('click', () => {cancelSearch(); clearPoint(); status.textContent='Pin and coordinates cleared. Choose a new point or enter both coordinates.';});
   form.addEventListener('reset', () => {cancelSearch(); clearPoint(); status.textContent=''; if(map) map.setView([25,0],2);});
 }

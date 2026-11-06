@@ -1,4 +1,4 @@
-import {fields} from './fields.mjs';
+import {fields} from './fields.mjs?v=2';
 
 export function coordinate(value, limit) {
   const text = String(value ?? '').trim();
@@ -32,7 +32,6 @@ export function payloadFrom(form) {
     if (field.kind === 'date' && (!/^\d{4}-\d{2}-\d{2}$/.test(value) || !Number.isFinite(Date.parse(value)) || new Date(value).toISOString().slice(0, 10) !== value)) throw Error('Enter a valid date.');
     payload[field.name] = field.kind === 'coordinate' ? coordinate(value, field.name === 'latitude' ? 90 : 180) : value;
   }
-  if ((payload.latitude === null) !== (payload.longitude === null)) throw Error('Enter both latitude and longitude, or leave both blank.');
   if (payload.year_or_duration) {
     const match = /^(\d{4})(?: to (\d{4}))?$/.exec(payload.year_or_duration);
     if (!match || Number(match[1]) === 0 || (match[2] && Number(match[2]) < Number(match[1]))) throw Error('Use YYYY or YYYY to YYYY, with the ending year at or after the starting year.');

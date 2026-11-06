@@ -1,9 +1,7 @@
 export const sections = [
   {
-    "id": "contributors",
-    "title": "Contributors",
-    "description": "Fields marked * are required. All other fields are optional. Leave a field empty when the paper does not provide the information.",
-    "optional": false,
+    "id": "case-study",
+    "title": "Case study and location",
     "fields": [
       {
         "name": "entry_date",
@@ -19,6 +17,67 @@ export const sections = [
         "required": true,
         "maxLength": 300
       },
+      {
+        "name": "location",
+        "label": "Find a place on the map",
+        "kind": "text",
+        "help": "Search for a place, choose a result, then click the map or drag the pin to the study location. You can also enter coordinates directly.",
+        "maxLength": 300
+      },
+      {
+        "name": "latitude",
+        "label": "Latitude",
+        "kind": "coordinate",
+        "help": "Decimal number from -90 to 90. No N, S, E, or W.",
+        "required": true
+      },
+      {
+        "name": "longitude",
+        "label": "Longitude",
+        "kind": "coordinate",
+        "help": "Decimal number from -180 to 180. No N, S, E, or W.",
+        "required": true
+      },
+      {
+        "name": "region",
+        "label": "Region",
+        "kind": "text",
+        "help": "Region where the case study lies (e.g. Wisconsin, southern Africa).",
+        "maxLength": 1000
+      },
+      {
+        "name": "countries",
+        "label": "Countries",
+        "kind": "text",
+        "help": "Countries in which the case lies. Separate multiple countries with commas (e.g. USA, Sweden).",
+        "maxLength": 1000
+      },
+      {
+        "name": "continents_oceans",
+        "label": "Continent or Ocean",
+        "kind": "multi",
+        "choices": [
+          "Africa",
+          "Antarctica",
+          "Asia",
+          "Australia & New Zealand",
+          "Europe",
+          "North America",
+          "Central America",
+          "South America",
+          "Arctic Ocean",
+          "Atlantic Ocean",
+          "Indian Ocean",
+          "Pacific Ocean",
+          "Southern Ocean"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "contributors",
+    "title": "Contributors",
+    "fields": [
       {
         "name": "main_contributor",
         "label": "Main contributor",
@@ -40,7 +99,6 @@ export const sections = [
     "id": "basic",
     "title": "Basic information",
     "description": "Basic information about the regime shift case. If you do not know the answer or the paper does not provide it, leave the field empty.",
-    "optional": false,
     "fields": [
       {
         "name": "summary",
@@ -150,73 +208,9 @@ export const sections = [
     ]
   },
   {
-    "id": "geography",
-    "title": "Location",
-    "description": "Provide latitude and longitude for the case study. Search and adjust a map pin, or enter coordinates directly. Use a representative point for a larger area.",
-    "optional": false,
-    "fields": [
-      {
-        "name": "continents_oceans",
-        "label": "Continent or Ocean",
-        "kind": "multi",
-        "choices": [
-          "Africa",
-          "Antarctica",
-          "Asia",
-          "Australia & New Zealand",
-          "Europe",
-          "North America",
-          "Central America",
-          "South America",
-          "Arctic Ocean",
-          "Atlantic Ocean",
-          "Indian Ocean",
-          "Pacific Ocean",
-          "Southern Ocean"
-        ]
-      },
-      {
-        "name": "region",
-        "label": "Region",
-        "kind": "text",
-        "help": "Region where the case study lies (e.g. Wisconsin, southern Africa).",
-        "maxLength": 1000
-      },
-      {
-        "name": "countries",
-        "label": "Countries",
-        "kind": "text",
-        "help": "Countries in which the case lies. Separate multiple countries with commas (e.g. USA, Sweden).",
-        "maxLength": 1000
-      },
-      {
-        "name": "location",
-        "label": "Find a place on the map",
-        "kind": "text",
-        "help": "Search for a place, choose a result, then click the map or drag the pin to the study location. You can also enter coordinates directly.",
-        "maxLength": 300
-      },
-      {
-        "name": "latitude",
-        "label": "Latitude",
-        "kind": "coordinate",
-        "help": "Decimal number from -90 to 90. No N, S, E, or W.",
-        "required": true
-      },
-      {
-        "name": "longitude",
-        "label": "Longitude",
-        "kind": "coordinate",
-        "help": "Decimal number from -180 to 180. No N, S, E, or W.",
-        "required": true
-      }
-    ]
-  },
-  {
     "id": "drivers",
     "title": "Drivers and impacts",
     "description": "Select only the processes and impacts mentioned in the paper. Leave unanswered groups empty.",
-    "optional": false,
     "fields": [
       {
         "name": "direct_drivers",
@@ -333,8 +327,6 @@ export const sections = [
   {
     "id": "attributes",
     "title": "Key attributes",
-    "description": "",
-    "optional": false,
     "fields": [
       {
         "name": "time_scales",
@@ -408,8 +400,6 @@ export const sections = [
   {
     "id": "references",
     "title": "Thresholds and references",
-    "description": "",
-    "optional": false,
     "fields": [
       {
         "name": "threshold_variable",

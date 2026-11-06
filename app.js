@@ -1,7 +1,7 @@
 import {config} from './config.js';
-import {sections} from './fields.mjs';
-import {payloadFrom} from './validation.mjs';
-import {setupLocation} from './location.mjs';
+import {sections} from './fields.mjs?v=2';
+import {payloadFrom} from './validation.mjs?v=2';
+import {setupLocation} from './location.mjs?v=2';
 
 const form = document.querySelector('#case-form');
 const button = document.querySelector('#submit');
@@ -23,7 +23,7 @@ for (const [index, section] of sections.entries()) {
   }
   for (const field of section.fields) {
     const wrapper = document.createElement('div');
-    wrapper.className = `field field-${field.kind}`;
+    wrapper.className = 'field';
     const label = document.createElement(field.kind === 'multi' ? 'div' : 'label');
     label.id = `${field.name}-label`;
     label.className = 'field-label';
@@ -72,10 +72,10 @@ for (const [index, section] of sections.entries()) {
         input.type = 'checkbox';
         input.name = field.name;
         input.value = choice;
-        input.addEventListener('change', updateSelection);
         option.append(input, document.createTextNode(choice));
         options.append(option);
       }
+      options.addEventListener('change', updateSelection);
       dropdown.append(summary, options);
       wrapper.append(dropdown, preview);
       form.addEventListener('reset', () => {
@@ -98,7 +98,6 @@ for (const [index, section] of sections.entries()) {
         input.type = field.kind === 'date' ? 'date' : 'text';
         if (field.kind === 'coordinate') input.inputMode = 'decimal';
       }
-      wrapper.append(input);
       if (field.name === 'location') {
         input.autocomplete = 'off';
         const row = document.createElement('div');
@@ -128,6 +127,8 @@ for (const [index, section] of sections.entries()) {
         credit.className = 'map-credit';
         credit.textContent = 'Search text is sent to Photon. Map tiles are provided by OpenStreetMap. Coordinates are required; choose a representative point for a larger study area.';
         wrapper.append(status, results, map, clear, credit);
+      } else {
+        wrapper.append(input);
       }
     }
     element.append(wrapper);
@@ -141,10 +142,6 @@ const ready = /^https:\/\/[a-z0-9-]+\.supabase\.co$/.test(projectUrl) && key.sta
 button.disabled = !ready;
 if (!ready) document.querySelector('#setup').textContent = 'Preview only — the research database is not connected yet.';
 setupLocation(form);
-form.addEventListener('invalid', event => {
-  const section = event.target.closest('.analysis-section');
-  if (section) section.open = true;
-}, true);
 form.addEventListener('submit', async event => {
   event.preventDefault();
   if (!ready || button.disabled) return;
