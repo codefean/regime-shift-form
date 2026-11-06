@@ -1,6 +1,6 @@
 import {config} from './config.js';
-import {sections} from './fields.mjs?v=2';
-import {payloadFrom} from './validation.mjs?v=2';
+import {sections} from './fields.mjs?v=3';
+import {payloadFrom} from './validation.mjs?v=3';
 import {setupLocation} from './location.mjs?v=2';
 
 const form = document.querySelector('#case-form');
@@ -44,7 +44,46 @@ for (const [index, section] of sections.entries()) {
       help.textContent = field.help;
       wrapper.append(help);
     }
-    if (field.kind === 'multi') {
+    if (field.kind === 'links') {
+      const list = document.createElement('div');
+      let nextId = 1;
+      function addLink() {
+        const row = document.createElement('div');
+        row.className = 'link-row';
+        const input = document.createElement('input');
+        const number = nextId++;
+        input.id = number === 1 ? field.name : `${field.name}-${number}`;
+        input.name = field.name;
+        input.type = 'url';
+        input.placeholder = 'https://doi.org/...';
+        input.maxLength = field.maxLength;
+        input.setAttribute('aria-label', `Reference link ${number}`);
+        input.setAttribute('aria-describedby', `${field.name}-help`);
+        row.append(input);
+        if (number > 1) {
+          const remove = document.createElement('button');
+          remove.type = 'button';
+          remove.className = 'secondary';
+          remove.textContent = 'Remove';
+          remove.setAttribute('aria-label', `Remove reference link ${number}`);
+          remove.addEventListener('click', () => row.remove());
+          row.append(remove);
+        }
+        list.append(row);
+        return input;
+      }
+      const add = document.createElement('button');
+      add.type = 'button';
+      add.className = 'secondary add-link';
+      add.textContent = 'Add another link';
+      add.addEventListener('click', () => addLink().focus());
+      addLink();
+      wrapper.append(list, add);
+      form.addEventListener('reset', () => {
+        for (const row of [...list.children].slice(1)) row.remove();
+        nextId = 2;
+      });
+    } else if (field.kind === 'multi') {
       const dropdown = document.createElement('details');
       dropdown.className = 'multi';
       const summary = document.createElement('summary');

@@ -1,4 +1,4 @@
-import {coordinate} from './validation.mjs?v=2';
+import {coordinate} from './validation.mjs?v=3';
 import {mapConfig} from './map-config.mjs';
 export function setupLocation(form) {
   const location = form.elements.location;

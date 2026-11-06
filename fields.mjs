@@ -426,14 +426,14 @@ export const sections = [
         "name": "reference_text",
         "label": "Reference: text",
         "kind": "textarea",
-        "help": "If no DOI is available, paste a complete reference, preferably in APA format. For multiple references, use matching IDs in both fields: (#1) … (#2) … .",
+        "help": "If no DOI is available, paste a complete reference, preferably in APA format. Put multiple references on separate lines, in the same order as the links below.",
         "maxLength": 15000
       },
       {
         "name": "reference_doi",
         "label": "Reference: DOI or link",
-        "kind": "textarea",
-        "help": "Use a full https://doi.org/ link, an OpenAlex link, or another source link. For multiple references, use matching IDs in both fields: (#1) … (#2) … .",
+        "kind": "links",
+        "help": "Enter one full https://doi.org/, OpenAlex, or other source link per box. Use Add another link for additional sources. No numbered IDs are needed.",
         "maxLength": 10000
       }
     ]

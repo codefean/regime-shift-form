@@ -1,4 +1,4 @@
-import {fields} from './fields.mjs?v=2';
+import {fields} from './fields.mjs?v=3';
 
 export function coordinate(value, limit) {
   const text = String(value ?? '').trim();
@@ -15,7 +15,16 @@ export function coordinate(value, limit) {
 export function payloadFrom(form) {
   const payload = {};
   for (const field of fields) {
-    const value = String(form.get(field.name) ?? '').trim();
+    let value = String(form.get(field.name) ?? '').trim();
+    if (field.kind === 'links') {
+      const links = form.getAll(field.name).map(link => String(link).trim()).filter(Boolean);
+      for (const link of links) {
+        let url;
+        try { url = new URL(link); } catch { throw Error('Enter a full http:// or https:// source link in each reference box.'); }
+        if (!/^https?:\/\/\S+$/i.test(link) || !url.hostname || url.username || url.password) throw Error('Reference links must use http:// or https:// and must not contain spaces or login details.');
+      }
+      value = links.join(', ');
+    }
     if (field.required && !value) throw Error(`Please complete ${field.label}.`);
     if (field.kind === 'multi') {
       const selected = [...new Set(form.getAll(field.name))];

@@ -31,7 +31,7 @@ Other fields are optional. Blank answers are stored as null, distinct from choos
 - Region and countries are separate from the map's place label. Countries remain comma-separated text, as in the template.
 - Coordinates are WGS84 numeric decimal latitude/longitude. A pin represents a point, not a study-area boundary.
 - Year/duration accepts YYYY or YYYY to YYYY. Date is the template's Date field; it is not inferred to be the date of the regime shift.
-- Threshold variables, values, and units are kept as text to preserve multiple values and the source's notation. Reference text and DOI/link fields keep matching (#1), (#2) IDs.
+- Threshold variables, values, and units are kept as text to preserve multiple values and the source's notation. Reference links use separate input boxes and are saved in `reference_doi` as comma-separated text. Blank link boxes are ignored; reference citations can be entered on separate lines in matching order.
 - The detailed narrative section is expandable and optional. Word-count guidance follows the template; character limits bound storage without imposing an additional word-count rule.
 - Diagrams and photos are provided as text/links; no files are uploaded.
 

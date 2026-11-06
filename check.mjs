@@ -42,3 +42,11 @@ for (const change of [{entry_date:'2023-02-29'}, {latitude:'91'}, {longitude:'-1
 const withExtra = sample(); withExtra.set('review_status', 'approved');
 assert.equal(payloadFrom(withExtra).review_status, undefined);
 console.log('PASS: all 42 fields, six required fields, every category choice, optional blanks, coordinate precision, date/year validation, and metadata exclusion.');
+const links = ['https://doi.org/10.1126/science.aat7850', 'https://openalex.org/W123456789'];
+assert.equal(payloadFrom(sample({reference_doi:links})).reference_doi, links.join(', '));
+assert.equal(payloadFrom(sample({reference_doi:['', ` ${links[0]} `, '']})).reference_doi, links[0]);
+assert.equal(payloadFrom(sample({reference_doi:['', ' ']})).reference_doi, null);
+assert.equal(payloadFrom(sample({reference_doi:[links[0]]})).reference_doi, links[0]);
+for (const link of ['javascript:alert(1)', '10.1234/example', 'https://example.org/a b', 'https://user:password@example.org', 'ftp://example.org']) assert.throws(() => payloadFrom(sample({reference_doi:[link]})));
+assert.throws(() => payloadFrom(sample({reference_doi:['https://example.org/' + 'a'.repeat(5000), 'https://example.org/' + 'b'.repeat(5000)]})));
+console.log('PASS: multiple links join with commas; blanks are ignored; URLs and combined length are validated.');
