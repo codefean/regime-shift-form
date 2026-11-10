@@ -1,7 +1,5 @@
 # Regime Shifts Database — a guide to the submission form
 
-Hi Emmy,
-
 This guide explains the code behind the case-study submission form and how its database works. The form collects the location, characteristics, drivers, impacts, references, and optional narrative for a regime-shift case study. Submissions go to a Supabase PostgreSQL database for researcher review.
 
 Code: [github.com/codefean/regime-shift-form](https://github.com/codefean/regime-shift-form).
